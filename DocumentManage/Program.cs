@@ -30,7 +30,8 @@ builder.Services.AddScoped<IStatusServices, StatusServices>();
 builder.Services.AddScoped<IwStatusServices, wStatusServices>();
 builder.Services.AddScoped<IPositionServices, PositionServices>();
 builder.Services.AddScoped<IDocumentServices, DocumentServices>();
-
+builder.Services.AddScoped<IProfileServices, ProfileServices>();
+builder.Services.AddScoped<IRequestServices, RequestServices>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
