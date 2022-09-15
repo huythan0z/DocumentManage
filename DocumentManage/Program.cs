@@ -29,6 +29,7 @@ builder.Services.AddScoped<IUrgencyServices, UrgencyServices>();
 builder.Services.AddScoped<IStatusServices, StatusServices>();
 builder.Services.AddScoped<IwStatusServices, wStatusServices>();
 builder.Services.AddScoped<IPositionServices, PositionServices>();
+builder.Services.AddScoped<IDocumentServices, DocumentServices>();
 
 builder.Services.AddCors(options =>
 {
