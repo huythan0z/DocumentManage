@@ -11,7 +11,7 @@ namespace DocumentManage.Models
         }
 
         public int WStatusId { get; set; }
-        public string? WStatus1 { get; set; }
+        public string? WStatuss { get; set; }
 
         public virtual ICollection<Profile> Profiles { get; set; }
     }

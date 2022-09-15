@@ -2,17 +2,18 @@
 using DocumentManage.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.NetworkInformation;
 
 namespace DocumentManage.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UrgencyController : ControllerBase
+    public class wStatusController : ControllerBase
     {
-        private readonly IUrgencyServices _urgencyServices;
-        public UrgencyController(IUrgencyServices urgencyServices)
+        private readonly IwStatusServices _wstatusServices;
+        public wStatusController(IwStatusServices wstatusServices)
         {
-            _urgencyServices = urgencyServices;
+            _wstatusServices = wstatusServices;
         }
         [Route("All")]
         [HttpGet]
@@ -20,7 +21,7 @@ namespace DocumentManage.Controllers
         {
             try
             {
-                var data = _urgencyServices.GetAll();
+                var data = _wstatusServices.GetAll();
                 return Ok(data);
             }
             catch (Exception e)
@@ -30,12 +31,12 @@ namespace DocumentManage.Controllers
         }
         [Route("AddNew")]
         [HttpPost]
-        public dynamic AddNew(Urgency urgency)
+        public dynamic AddNew(WStatus wstatus)
         {
             try
             {
-                _urgencyServices.AddNew(urgency);
-                return Ok(urgency);
+                _wstatusServices.AddNew(wstatus);
+                return Ok(wstatus);
             }
             catch (Exception e)
             {
@@ -44,11 +45,11 @@ namespace DocumentManage.Controllers
         }
         [Route("Update")]
         [HttpPut]
-        public dynamic Update(Urgency urgency)
+        public dynamic Update(WStatus wstatus)
         {
             try
             {
-                var data = _urgencyServices.Update(urgency);
+                var data = _wstatusServices.Update(wstatus);
                 return Ok(data);
             }
             catch (Exception e)
@@ -58,11 +59,11 @@ namespace DocumentManage.Controllers
         }
         [Route("Delete")]
         [HttpDelete]
-        public dynamic Delete(Urgency urgency)
+        public dynamic Delete(WStatus wstatus)
         {
             try
             {
-                var data = _urgencyServices.Delete(urgency);
+                var data = _wstatusServices.Delete(wstatus);
                 return Ok(data);
             }
             catch (Exception e)
@@ -72,4 +73,3 @@ namespace DocumentManage.Controllers
         }
     }
 }
-

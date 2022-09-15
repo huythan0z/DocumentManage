@@ -25,7 +25,9 @@ builder.Services.AddDbContext<DocumentManageContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.AddScoped<ITypeServices, TypeServices>();
-
+builder.Services.AddScoped<IUrgencyServices, UrgencyServices>();
+builder.Services.AddScoped<IStatusServices, StatusServices>();
+builder.Services.AddScoped<IwStatusServices, wStatusServices>();
 
 builder.Services.AddCors(options =>
 {

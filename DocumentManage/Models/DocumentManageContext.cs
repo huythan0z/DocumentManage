@@ -71,9 +71,7 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.PositionId).HasColumnName("PositionID");
 
-                entity.Property(e => e.Position1)
-                    .HasMaxLength(50)
-                    .HasColumnName("Position");
+                entity.Property(e => e.Positionn).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Profile>(entity =>
@@ -146,9 +144,8 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
-                entity.Property(e => e.Status1)
+                entity.Property(e => e.Statuss)
                     .HasMaxLength(10)
-                    .HasColumnName("Status")
                     .IsFixedLength();
             });
 
@@ -167,9 +164,7 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.UrgencyId).HasColumnName("UrgencyID");
 
-                entity.Property(e => e.Urgency1)
-                    .HasMaxLength(50)
-                    .HasColumnName("Urgency");
+                entity.Property(e => e.Urgencyy).HasMaxLength(50);
             });
 
             modelBuilder.Entity<WStatus>(entity =>
@@ -178,9 +173,9 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.WStatusId).HasColumnName("wStatusID");
 
-                entity.Property(e => e.WStatus1)
+                entity.Property(e => e.WStatuss)
                     .HasMaxLength(10)
-                    .HasColumnName("wStatus")
+                    .HasColumnName("wStatuss")
                     .IsFixedLength();
             });
 

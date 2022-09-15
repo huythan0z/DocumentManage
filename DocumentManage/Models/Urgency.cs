@@ -11,7 +11,7 @@ namespace DocumentManage.Models
         }
 
         public int UrgencyId { get; set; }
-        public string? Urgency1 { get; set; }
+        public string? Urgencyy { get; set; }
 
         public virtual ICollection<Document> Documents { get; set; }
     }

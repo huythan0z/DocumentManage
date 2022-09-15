@@ -11,7 +11,7 @@ namespace DocumentManage.Models
         }
 
         public int StatusId { get; set; }
-        public string? Status1 { get; set; }
+        public string? Statuss { get; set; }
 
         public virtual ICollection<Request> Requests { get; set; }
     }

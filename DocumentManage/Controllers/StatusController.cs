@@ -7,12 +7,12 @@ namespace DocumentManage.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UrgencyController : ControllerBase
+    public class StatusController : ControllerBase
     {
-        private readonly IUrgencyServices _urgencyServices;
-        public UrgencyController(IUrgencyServices urgencyServices)
+        private readonly IStatusServices _statusServices;
+        public StatusController(IStatusServices statusServices)
         {
-            _urgencyServices = urgencyServices;
+            _statusServices = statusServices;
         }
         [Route("All")]
         [HttpGet]
@@ -20,7 +20,7 @@ namespace DocumentManage.Controllers
         {
             try
             {
-                var data = _urgencyServices.GetAll();
+                var data = _statusServices.GetAll();
                 return Ok(data);
             }
             catch (Exception e)
@@ -30,12 +30,12 @@ namespace DocumentManage.Controllers
         }
         [Route("AddNew")]
         [HttpPost]
-        public dynamic AddNew(Urgency urgency)
+        public dynamic AddNew(Status status)
         {
             try
             {
-                _urgencyServices.AddNew(urgency);
-                return Ok(urgency);
+                _statusServices.AddNew(status);
+                return Ok(status);
             }
             catch (Exception e)
             {
@@ -44,11 +44,11 @@ namespace DocumentManage.Controllers
         }
         [Route("Update")]
         [HttpPut]
-        public dynamic Update(Urgency urgency)
+        public dynamic Update(Status status)
         {
             try
             {
-                var data = _urgencyServices.Update(urgency);
+                var data = _statusServices.Update(status);
                 return Ok(data);
             }
             catch (Exception e)
@@ -58,11 +58,11 @@ namespace DocumentManage.Controllers
         }
         [Route("Delete")]
         [HttpDelete]
-        public dynamic Delete(Urgency urgency)
+        public dynamic Delete(Status status)
         {
             try
             {
-                var data = _urgencyServices.Delete(urgency);
+                var data = _statusServices.Delete(status);
                 return Ok(data);
             }
             catch (Exception e)
@@ -72,4 +72,3 @@ namespace DocumentManage.Controllers
         }
     }
 }
-

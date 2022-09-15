@@ -11,7 +11,7 @@ namespace DocumentManage.Models
         }
 
         public int PositionId { get; set; }
-        public string? Position1 { get; set; }
+        public string? Positionn { get; set; }
 
         public virtual ICollection<Profile> Profiles { get; set; }
     }
