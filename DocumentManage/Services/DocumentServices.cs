@@ -11,10 +11,9 @@ namespace DocumentManage.Services
         {
             _context = context;
         }
-
         public IQueryable<dynamic> GetAll()
         {
-            return _context.Documents.Include(c => c.Type);
+            return _context.Documents;
         }
         public dynamic AddNew(Document document)
         {

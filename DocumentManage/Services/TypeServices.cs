@@ -1,5 +1,6 @@
 ﻿using DocumentManage.IServices;
 using DocumentManage.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DocumentManage.Services
 {
@@ -14,7 +15,7 @@ namespace DocumentManage.Services
 
         public IQueryable<dynamic> GetAll()
         {
-            return _context.Types.Select(m => new { m.TypeId, m.DocumentType }).ToList().AsQueryable();
+            return _context.Types.Include(c => c.Documents);
         }
         public dynamic AddNew(Models.Type type)
         {
