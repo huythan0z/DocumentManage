@@ -1,5 +1,6 @@
 ﻿using DocumentManage.IServices;
 using DocumentManage.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DocumentManage.Services
 {
@@ -12,7 +13,7 @@ namespace DocumentManage.Services
         }
         public IQueryable<dynamic> GetAll()
         {
-            return _context.Requests;
+            return _context.Requests.Include(c => c.Document);
         }
         public dynamic AddNew(Request request)
         {
