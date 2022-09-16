@@ -35,7 +35,7 @@ namespace DocumentManage.Services
             data.Password = profile.Password;
             data.PositionId = profile.PositionId;
             data.WStatus = profile.WStatus;
-            
+
             _context.Profiles.Update(data);
             _context.SaveChanges();
             return true;

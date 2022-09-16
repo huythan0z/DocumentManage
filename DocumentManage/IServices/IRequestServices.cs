@@ -6,7 +6,7 @@ namespace DocumentManage.IServices
     {
         IQueryable<dynamic> GetAll();
         dynamic AddNew(Request request);
-        //dynamic Update(Request request);
+        dynamic Update(Request request);
         dynamic Delete(Request request);
     }
 }

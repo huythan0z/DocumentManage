@@ -42,20 +42,20 @@ namespace DocumentManage.Controllers
                 return e.Message;
             }
         }
-        //[Route("Update")]
-        //[HttpPut]
-        //public dynamic Update(Profile profile)
-        //{
-        //    try
-        //    {
-        //        var data = _requestServices.Update(profile);
-        //        return Ok(data);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return e.Message;
-        //    }
-        //}
+        [Route("update")]
+        [HttpPut]
+        public dynamic update(Request request)
+        {
+            try
+            {
+                var data = _requestServices.Update(request);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
         [Route("Delete")]
         [HttpDelete]
         public dynamic Delete(Request request)
