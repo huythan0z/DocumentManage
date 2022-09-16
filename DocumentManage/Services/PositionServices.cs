@@ -23,7 +23,7 @@ namespace DocumentManage.Services
         }
         public dynamic Update(Position position)
         {
-            var data = _context.Positions.FirstOrDefault(m => m.PositionId == position.PositionId);
+            var data = _context.Positions.FirstOrDefault(m => m.Id == position.Id);
             if (data == null)
             {
                 return false;
@@ -35,7 +35,7 @@ namespace DocumentManage.Services
         }
         public dynamic Delete(Position position)
         {
-            var data = _context.Positions.FirstOrDefault(m => m.PositionId == position.PositionId);
+            var data = _context.Positions.FirstOrDefault(m => m.Id == position.Id);
             if (data == null)
             {
                 return false;

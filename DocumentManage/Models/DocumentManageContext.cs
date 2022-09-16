@@ -29,7 +29,7 @@ namespace DocumentManage.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-        //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=TAKA\\SQLEXPRESS;Database=DocumentManage;Trusted_Connection=True;");
             }
         }
@@ -40,7 +40,7 @@ namespace DocumentManage.Models
             {
                 entity.ToTable("Document");
 
-                entity.Property(e => e.DocumentId).HasColumnName("DocumentID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.DateSend).HasMaxLength(50);
 
@@ -69,7 +69,7 @@ namespace DocumentManage.Models
             {
                 entity.ToTable("Position");
 
-                entity.Property(e => e.PositionId).HasColumnName("PositionID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Positionn).HasMaxLength(50);
             });
@@ -78,7 +78,7 @@ namespace DocumentManage.Models
             {
                 entity.ToTable("Profile");
 
-                entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Address).HasMaxLength(50);
 
@@ -142,7 +142,7 @@ namespace DocumentManage.Models
             {
                 entity.ToTable("Status");
 
-                entity.Property(e => e.StatusId).HasColumnName("StatusID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Statuss)
                     .HasMaxLength(10)
@@ -153,7 +153,7 @@ namespace DocumentManage.Models
             {
                 entity.ToTable("Type");
 
-                entity.Property(e => e.TypeId).HasColumnName("TypeID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.DocumentType).HasMaxLength(50);
             });
@@ -162,7 +162,7 @@ namespace DocumentManage.Models
             {
                 entity.ToTable("Urgency");
 
-                entity.Property(e => e.UrgencyId).HasColumnName("UrgencyID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Urgencyy).HasMaxLength(50);
             });
@@ -171,7 +171,7 @@ namespace DocumentManage.Models
             {
                 entity.ToTable("wStatus");
 
-                entity.Property(e => e.WStatusId).HasColumnName("wStatusID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.WStatuss)
                     .HasMaxLength(10)

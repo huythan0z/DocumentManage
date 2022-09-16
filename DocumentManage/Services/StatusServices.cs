@@ -24,7 +24,7 @@ namespace DocumentManage.Services
         }
         public dynamic Update(Status status)
         {
-            var data = _context.Statuses.FirstOrDefault(m => m.StatusId == status.StatusId);
+            var data = _context.Statuses.FirstOrDefault(m => m.Id == status.Id);
             if (data == null)
             {
                 return false;
@@ -36,7 +36,7 @@ namespace DocumentManage.Services
         }
         public dynamic Delete(Status status)
         {
-            var data = _context.Statuses.FirstOrDefault(m => m.StatusId == status.StatusId);
+            var data = _context.Statuses.FirstOrDefault(m => m.Id == status.Id);
             if (data == null)
             {
                 return false;

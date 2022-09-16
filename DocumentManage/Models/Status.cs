@@ -10,7 +10,7 @@ namespace DocumentManage.Models
             Requests = new HashSet<Request>();
         }
 
-        public int StatusId { get; set; }
+        public int Id { get; set; }
         public string? Statuss { get; set; }
 
         public virtual ICollection<Request> Requests { get; set; }

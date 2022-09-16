@@ -10,7 +10,7 @@ namespace DocumentManage.Models
             Profiles = new HashSet<Profile>();
         }
 
-        public int WStatusId { get; set; }
+        public int Id { get; set; }
         public string? WStatuss { get; set; }
 
         public virtual ICollection<Profile> Profiles { get; set; }

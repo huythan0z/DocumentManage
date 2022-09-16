@@ -24,7 +24,7 @@ namespace DocumentManage.Services
         }
         public dynamic Update(WStatus wstatus)
         {
-            var data = _context.WStatuses.FirstOrDefault(m => m.WStatusId == wstatus.WStatusId);
+            var data = _context.WStatuses.FirstOrDefault(m => m.Id == wstatus.Id);
             if (data == null)
             {
                 return false;
@@ -36,7 +36,7 @@ namespace DocumentManage.Services
         }
         public dynamic Delete(WStatus wstatus)
         {
-            var data = _context.WStatuses.FirstOrDefault(m => m.WStatusId == wstatus.WStatusId);
+            var data = _context.WStatuses.FirstOrDefault(m => m.Id == wstatus.Id);
             if (data == null)
             {
                 return false;

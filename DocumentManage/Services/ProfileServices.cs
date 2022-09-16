@@ -23,7 +23,7 @@ namespace DocumentManage.Services
         }
         public dynamic Update(Profile profile)
         {
-            var data = _context.Profiles.FirstOrDefault(m => m.ProfileId == profile.ProfileId);
+            var data = _context.Profiles.FirstOrDefault(m => m.Id == profile.Id);
             if (data == null)
             {
                 return false;
@@ -42,7 +42,7 @@ namespace DocumentManage.Services
         }
         public dynamic Delete(Profile document)
         {
-            var data = _context.Profiles.FirstOrDefault(m => m.ProfileId == document.ProfileId);
+            var data = _context.Profiles.FirstOrDefault(m => m.Id == document.Id);
             if (data == null)
             {
                 return false;

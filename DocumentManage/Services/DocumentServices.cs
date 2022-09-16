@@ -23,7 +23,7 @@ namespace DocumentManage.Services
         }
         public dynamic Update(Document document)
         {
-            var data = _context.Documents.FirstOrDefault(m => m.DocumentId == document.DocumentId);
+            var data = _context.Documents.FirstOrDefault(m => m.Id == document.Id);
             if (data == null)
             {
                 return false;
@@ -41,7 +41,7 @@ namespace DocumentManage.Services
         }
         public dynamic Delete(Document document)
         {
-            var data = _context.Documents.FirstOrDefault(m => m.DocumentId == document.DocumentId);
+            var data = _context.Documents.FirstOrDefault(m => m.Id == document.Id);
             if (data == null)
             {
                 return false;

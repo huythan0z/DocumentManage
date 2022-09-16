@@ -10,7 +10,7 @@ namespace DocumentManage.Models
             Requests = new HashSet<Request>();
         }
 
-        public int DocumentId { get; set; }
+        public int Id { get; set; }
         public string? Sender { get; set; }
         public string? DateSend { get; set; }
         public string? Receiver { get; set; }

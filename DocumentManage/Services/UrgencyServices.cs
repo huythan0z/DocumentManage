@@ -24,7 +24,7 @@ namespace DocumentManage.Services
         }
         public dynamic Update(Urgency urgency)
         {
-            var data = _context.Urgencies.FirstOrDefault(m => m.UrgencyId == urgency.UrgencyId);
+            var data = _context.Urgencies.FirstOrDefault(m => m.Id == urgency.Id);
             if (data == null)
             {
                 return false;
@@ -36,7 +36,7 @@ namespace DocumentManage.Services
         }
         public dynamic Delete(Urgency urgency)
         {
-            var data = _context.Urgencies.FirstOrDefault(m => m.UrgencyId == urgency.UrgencyId);
+            var data = _context.Urgencies.FirstOrDefault(m => m.Id == urgency.Id);
             if (data == null)
             {
                 return false;

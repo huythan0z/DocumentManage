@@ -10,7 +10,7 @@ namespace DocumentManage.Models
             Documents = new HashSet<Document>();
         }
 
-        public int TypeId { get; set; }
+        public int Id { get; set; }
         public string? DocumentType { get; set; }
 
         public virtual ICollection<Document> Documents { get; set; }

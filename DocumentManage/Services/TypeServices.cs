@@ -25,7 +25,7 @@ namespace DocumentManage.Services
         }
         public dynamic Update(Models.Type type)
         {
-            var data = _context.Types.FirstOrDefault(m => m.TypeId == type.TypeId);
+            var data = _context.Types.FirstOrDefault(m => m.Id == type.Id);
             if (data == null)
             {
                 return false;
@@ -37,7 +37,7 @@ namespace DocumentManage.Services
         }
         public dynamic Delete(Models.Type type)
         {
-            var data = _context.Types.FirstOrDefault(m => m.TypeId == type.TypeId);
+            var data = _context.Types.FirstOrDefault(m => m.Id == type.Id);
             if (data == null)
             {
                 return false;

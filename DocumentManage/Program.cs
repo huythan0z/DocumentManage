@@ -1,3 +1,5 @@
+
+//Scaffold-DbContext "Server=TAKA\SQLEXPRESS;Database=DocumentManage;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
 using DocumentManage.IServices;
 using DocumentManage.Models;
 using DocumentManage.Services;

@@ -10,7 +10,7 @@ namespace DocumentManage.Models
             Requests = new HashSet<Request>();
         }
 
-        public int ProfileId { get; set; }
+        public int Id { get; set; }
         public string? Name { get; set; }
         public string? Address { get; set; }
         public int? PhoneNumber { get; set; }
