@@ -8,5 +8,7 @@ namespace DocumentManage.IServices
         dynamic AddNew(Document document);
         dynamic Update(Document document);
         dynamic Delete(Document document);
+        dynamic GetType(Document document);
+        dynamic GetUrgency(Document document);
     }
 }

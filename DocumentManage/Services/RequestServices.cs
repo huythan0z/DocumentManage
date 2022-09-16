@@ -1,6 +1,7 @@
 ﻿using DocumentManage.IServices;
 using DocumentManage.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using System.Data;
 
 namespace DocumentManage.Services
@@ -17,7 +18,7 @@ namespace DocumentManage.Services
             return _context.Requests.Include(c => c.Document);
         }
         public dynamic AddNew(Request request)
-        {  
+        {
             _context.Requests.Add(request);
             _context.SaveChanges();
             return request;

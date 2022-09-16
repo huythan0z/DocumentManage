@@ -1,6 +1,7 @@
 ﻿using DocumentManage.IServices;
 using DocumentManage.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 
 namespace DocumentManage.Services
 {
@@ -13,7 +14,27 @@ namespace DocumentManage.Services
         }
         public IQueryable<dynamic> GetAll()
         {
-            return _context.Documents.Include(c => c.Requests);
+            var items = _context.Documents.Include(u => u.Requests);
+            var output = from item in items
+                         select new
+                         {
+                             item.Sender,
+                             item.DateSend,
+                             item.Receiver,
+                             item.Note,
+                             item.DocumentFile,
+                             item.Type.DocumentType,
+                             item.Urgency.Urgencyy,
+                             Request = from r in item.Requests
+                                       select new
+                                       {
+                                           r.ProfileId,
+                                           r.Deadline,
+                                           r.Note,
+                                           r.Status.Statuss
+                                       }
+                         };
+            return output;
         }
         public dynamic AddNew(Document document)
         {
@@ -49,6 +70,16 @@ namespace DocumentManage.Services
             _context.Documents.Remove(data);
             _context.SaveChanges();
             return true;
+        }
+        public dynamic GetType(Document document)
+        {
+            var data = _context.Documents.Where(c => c.TypeId == document.TypeId);
+            return data.Include(m => m.Requests) ;
+        }
+        public dynamic GetUrgency(Document document)
+        {
+            var data = _context.Documents.Where(c => c.UrgencyId == document.UrgencyId);
+            return data.Include(m => m.Requests);
         }
     }
 }

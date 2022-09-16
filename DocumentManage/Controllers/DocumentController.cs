@@ -71,5 +71,34 @@ namespace DocumentManage.Controllers
                 return e.Message;
             }
         }
+        [Route("SearchByType")]
+        [HttpPost]
+        public dynamic GetType(Models.Document document)
+        {
+            try
+            {
+                var data = _documentServices.GetType(document);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("SearchByUrgency")]
+        [HttpPost]
+        public dynamic GetUr(Models.Document document)
+        {
+            try
+            {
+                var data = _documentServices.GetUrgency(document);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
     }
 }

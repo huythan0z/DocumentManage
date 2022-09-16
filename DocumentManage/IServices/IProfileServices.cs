@@ -8,5 +8,6 @@ namespace DocumentManage.IServices
         dynamic AddNew(Profile profile);
         dynamic Update(Profile profile);
         dynamic Delete(Profile profile);
+        dynamic GetPosition(Profile profile);
     }
 }

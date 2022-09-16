@@ -70,5 +70,19 @@ namespace DocumentManage.Controllers
                 return e.Message;
             }
         }
+        [Route("SearchByPosition")]
+        [HttpPost]
+        public dynamic GetPosition(Profile profile)
+        {
+            try
+            {
+                var data = _profileServices.GetPosition(profile);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
     }
 }
