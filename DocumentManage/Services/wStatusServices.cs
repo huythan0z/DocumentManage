@@ -1,5 +1,6 @@
 ﻿using DocumentManage.IServices;
 using DocumentManage.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Net.NetworkInformation;
 
 namespace DocumentManage.Services
@@ -14,7 +15,7 @@ namespace DocumentManage.Services
 
         public IQueryable<dynamic> GetAll()
         {
-            return _context.WStatuses;
+            return _context.WStatuses.Include(c => c.Profiles);
         }
         public dynamic AddNew(WStatus wstatus)
         {

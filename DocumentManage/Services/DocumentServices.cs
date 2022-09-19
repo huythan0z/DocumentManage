@@ -2,6 +2,7 @@
 using DocumentManage.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+using Microsoft.Extensions.Hosting;
 
 namespace DocumentManage.Services
 {
@@ -18,6 +19,7 @@ namespace DocumentManage.Services
             var output = from item in items
                          select new
                          {
+                             item.Id,
                              item.Sender,
                              item.DateSend,
                              item.Receiver,
@@ -42,27 +44,75 @@ namespace DocumentManage.Services
         }
         public dynamic AddNew(Document document)
         {
-            _context.Documents.Add(document);
+            Document doc = new Document
+            {        
+                Sender = document.Sender,
+                DateSend = document.DateSend,
+                Receiver = document.Receiver,
+                Deadline = document.Deadline,
+                Note = document.Note,
+                DocumentFile = document.DocumentFile,
+                TypeId = document.TypeId,
+                UrgencyId = document.UrgencyId,
+                StatusId = document.StatusId
+            };
+            //var docpro = new List<Request>();
+            _context.Documents.Add(doc);
             _context.SaveChanges();
-            return document;
+
+            var a = document.Profiles.ToList();
+            var pro = _context.Profiles.ToList();
+            foreach (var item in a)
+            {
+                //var items = new Request();
+                //{
+                //    items.DocumentId = doc.Id;
+                //    items.ProfileId = item.Id;
+                //}
+                var data = _context.Profiles.Where(c => c.Id == item.Id);    
+                doc.Profiles.Add(data.FirstOrDefault());
+            }
+            _context.Update(doc);
+            _context.SaveChanges();
+            return doc;
+
         }
         public dynamic Update(Document document)
         {
-            var data = _context.Documents.FirstOrDefault(m => m.Id == document.Id);
+            var data = _context.Documents.Include(c => c.Profiles).FirstOrDefault(m => m.Id == document.Id);
             if (data == null)
             {
                 return false;
             }
+            data.Id = document.Id;
             data.Sender = document.Sender;
             data.DateSend = document.DateSend;
             data.Receiver = document.Receiver;
+            data.Deadline = document.Deadline;
             data.Note = document.Note;
             data.DocumentFile = document.DocumentFile;
             data.TypeId = document.TypeId;
             data.UrgencyId = document.UrgencyId;
-            _context.Documents.Update(data);
+            data.StatusId = document.StatusId;
+
+            var del = data.Profiles.ToList();
+            foreach (var i in del)
+            {
+                data.Profiles.Remove(i);
+            }
+            _context.Update(data);
             _context.SaveChanges();
-            return true;
+            var a = document.Profiles.ToList();
+            foreach (var item in a)
+            {
+                var data1 = _context.Profiles.Where(c => c.Id == item.Id);
+                data.Profiles.Add(data1.FirstOrDefault());
+              
+            }
+            _context.Update(data);
+            _context.SaveChanges();
+            return data;
+
         }
         public dynamic Delete(Document document)
         {
@@ -78,7 +128,7 @@ namespace DocumentManage.Services
         public dynamic GetType(Document document)
         {
             var data = _context.Documents.Where(c => c.TypeId == document.TypeId);
-            return data.Include(m => m.Profiles) ;
+            return data.Include(m => m.Profiles);
         }
         public dynamic GetUrgency(Document document)
         {

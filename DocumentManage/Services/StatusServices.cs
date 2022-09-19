@@ -14,7 +14,7 @@ namespace DocumentManage.Services
 
         public IQueryable<dynamic> GetAll()
         {
-            return _context.Statuses;
+            return _context.Statuses.Include(c => c.Documents);
         }
         public dynamic AddNew(Status status)
         {

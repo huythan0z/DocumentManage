@@ -41,7 +41,7 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.DateSend).HasMaxLength(50);
+                entity.Property(e => e.DateSend).HasColumnType("date");
 
                 entity.Property(e => e.Deadline).HasColumnType("date");
 

@@ -12,7 +12,7 @@ namespace DocumentManage.Models
 
         public int Id { get; set; }
         public string? Sender { get; set; }
-        public string? DateSend { get; set; }
+        public DateTime? DateSend { get; set; }
         public string? Receiver { get; set; }
         public DateTime? Deadline { get; set; }
         public string? Note { get; set; }

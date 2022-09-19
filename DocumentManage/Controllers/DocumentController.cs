@@ -33,10 +33,11 @@ namespace DocumentManage.Controllers
         [HttpPost]
         public dynamic AddNew(Models.Document document)
         {
+            
             try
             {
-                _documentServices.AddNew(document);
-                return Ok(document);
+                var data = _documentServices.AddNew(document);
+                return Ok(data);
             }
             catch (Exception e)
             {

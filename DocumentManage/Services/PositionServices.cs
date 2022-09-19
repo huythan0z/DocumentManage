@@ -1,5 +1,6 @@
 ﻿using DocumentManage.IServices;
 using DocumentManage.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DocumentManage.Services
 {
@@ -13,7 +14,7 @@ namespace DocumentManage.Services
 
         public IQueryable<dynamic> GetAll()
         {
-            return _context.Positions;
+            return _context.Positions.Include(c => c.Profiles);
         }
         public dynamic AddNew(Position position)
         {
