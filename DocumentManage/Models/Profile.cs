@@ -7,7 +7,7 @@ namespace DocumentManage.Models
     {
         public Profile()
         {
-            Requests = new HashSet<Request>();
+            Documents = new HashSet<Document>();
         }
 
         public int Id { get; set; }
@@ -21,6 +21,7 @@ namespace DocumentManage.Models
 
         public virtual Position? Position { get; set; }
         public virtual WStatus? WStatus { get; set; }
-        public virtual ICollection<Request> Requests { get; set; }
+
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }

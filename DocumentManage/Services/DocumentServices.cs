@@ -14,7 +14,7 @@ namespace DocumentManage.Services
         }
         public IQueryable<dynamic> GetAll()
         {
-            var items = _context.Documents.Include(u => u.Requests);
+            var items = _context.Documents.Include(u => u.Profiles);
             var output = from item in items
                          select new
                          {
@@ -25,13 +25,17 @@ namespace DocumentManage.Services
                              item.DocumentFile,
                              item.Type.DocumentType,
                              item.Urgency.Urgencyy,
-                             Request = from r in item.Requests
+                             item.Status.Statuss,
+                             Profile = from p in item.Profiles
                                        select new
                                        {
-                                           r.ProfileId,
-                                           r.Deadline,
-                                           r.Note,
-                                           r.Status.Statuss
+                                           p.Id,
+                                           p.Name,
+                                           p.Address,
+                                           p.PhoneNumber,
+                                           p.Email,
+                                           p.Position.Positionn,
+                                           p.WStatus.WStatuss
                                        }
                          };
             return output;
@@ -74,12 +78,12 @@ namespace DocumentManage.Services
         public dynamic GetType(Document document)
         {
             var data = _context.Documents.Where(c => c.TypeId == document.TypeId);
-            return data.Include(m => m.Requests) ;
+            return data.Include(m => m.Profiles) ;
         }
         public dynamic GetUrgency(Document document)
         {
             var data = _context.Documents.Where(c => c.UrgencyId == document.UrgencyId);
-            return data.Include(m => m.Requests);
+            return data.Include(m => m.Profiles);
         }
     }
 }

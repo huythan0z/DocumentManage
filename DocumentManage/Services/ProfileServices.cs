@@ -14,7 +14,7 @@ namespace DocumentManage.Services
         }
         public IQueryable<dynamic> GetAll()
         {
-            var items = _context.Profiles.Include(u => u.Requests);
+            var items = _context.Profiles.Include(u => u.Documents);
             var output = from item in items
                          select new
                          {
@@ -23,15 +23,22 @@ namespace DocumentManage.Services
                              item.Address,
                              item.PhoneNumber,
                              item.Email,
-                             item.Position.Positionn,                 
-                             Request = from r in item.Requests
+                             item.Password,
+                             item.Position.Positionn,
+                             item.WStatus.WStatuss,
+                             document = from d in item.Documents
                                        select new
                                        {
-                                           r.DocumentId,
-                                           r.ProfileId,
-                                           r.Deadline,
-                                           r.Note,
-                                           r.Status.Statuss
+                                           d.Id,
+                                           d.Sender,
+                                           d.DateSend,
+                                           d.Receiver,
+                                           d.Deadline,
+                                           d.Note,
+                                           d.DocumentFile,
+                                           d.Type.DocumentType,
+                                           d.Urgency.Urgencyy,
+                                           d.Status.Statuss
                                        }
                          };
             return output;

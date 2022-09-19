@@ -7,12 +7,12 @@ namespace DocumentManage.Models
     {
         public Status()
         {
-            Requests = new HashSet<Request>();
+            Documents = new HashSet<Document>();
         }
 
         public int Id { get; set; }
         public string? Statuss { get; set; }
 
-        public virtual ICollection<Request> Requests { get; set; }
+        public virtual ICollection<Document> Documents { get; set; }
     }
 }

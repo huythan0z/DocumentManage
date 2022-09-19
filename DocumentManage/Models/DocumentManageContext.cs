@@ -19,7 +19,6 @@ namespace DocumentManage.Models
         public virtual DbSet<Document> Documents { get; set; } = null!;
         public virtual DbSet<Position> Positions { get; set; } = null!;
         public virtual DbSet<Profile> Profiles { get; set; } = null!;
-        public virtual DbSet<Request> Requests { get; set; } = null!;
         public virtual DbSet<Status> Statuses { get; set; } = null!;
         public virtual DbSet<Type> Types { get; set; } = null!;
         public virtual DbSet<Urgency> Urgencies { get; set; } = null!;
@@ -44,13 +43,22 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.DateSend).HasMaxLength(50);
 
+                entity.Property(e => e.Deadline).HasColumnType("date");
+
                 entity.Property(e => e.Receiver).HasMaxLength(50);
 
                 entity.Property(e => e.Sender).HasMaxLength(50);
 
+                entity.Property(e => e.StatusId).HasColumnName("StatusID");
+
                 entity.Property(e => e.TypeId).HasColumnName("TypeID");
 
                 entity.Property(e => e.UrgencyId).HasColumnName("UrgencyID");
+
+                entity.HasOne(d => d.Status)
+                    .WithMany(p => p.Documents)
+                    .HasForeignKey(d => d.StatusId)
+                    .HasConstraintName("FK_Document_Status");
 
                 entity.HasOne(d => d.Type)
                     .WithMany(p => p.Documents)
@@ -63,6 +71,23 @@ namespace DocumentManage.Models
                     .HasForeignKey(d => d.UrgencyId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Document_Urgency");
+
+                entity.HasMany(d => d.Profiles)
+                    .WithMany(p => p.Documents)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "Request",
+                        l => l.HasOne<Profile>().WithMany().HasForeignKey("ProfileId").HasConstraintName("FK_Request_Profile"),
+                        r => r.HasOne<Document>().WithMany().HasForeignKey("DocumentId").HasConstraintName("FK_Request_Document"),
+                        j =>
+                        {
+                            j.HasKey("DocumentId", "ProfileId");
+
+                            j.ToTable("Request");
+
+                            j.IndexerProperty<int>("DocumentId").HasColumnName("DocumentID");
+
+                            j.IndexerProperty<int>("ProfileId").HasColumnName("ProfileID");
+                        });
             });
 
             modelBuilder.Entity<Position>(entity =>
@@ -103,39 +128,6 @@ namespace DocumentManage.Models
                     .HasForeignKey(d => d.WStatusId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Profile_wStatus");
-            });
-
-            modelBuilder.Entity<Request>(entity =>
-            {
-                entity.ToTable("Request");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.Deadline).HasColumnType("date");
-
-                entity.Property(e => e.DocumentId).HasColumnName("DocumentID");
-
-                entity.Property(e => e.ProfileId).HasColumnName("ProfileID");
-
-                entity.Property(e => e.StatusId).HasColumnName("StatusID");
-
-                entity.HasOne(d => d.Document)
-                    .WithMany(p => p.Requests)
-                    .HasForeignKey(d => d.DocumentId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_Request_Document");
-
-                entity.HasOne(d => d.Profile)
-                    .WithMany(p => p.Requests)
-                    .HasForeignKey(d => d.ProfileId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_Request_Profile");
-
-                entity.HasOne(d => d.Status)
-                    .WithMany(p => p.Requests)
-                    .HasForeignKey(d => d.StatusId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_Request_Status");
             });
 
             modelBuilder.Entity<Status>(entity =>
