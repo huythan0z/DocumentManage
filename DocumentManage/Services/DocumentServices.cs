@@ -75,7 +75,6 @@ namespace DocumentManage.Services
             _context.Update(doc);
             _context.SaveChanges();
             return doc;
-
         }
         public dynamic Update(Document document)
         {
