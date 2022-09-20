@@ -1,6 +1,7 @@
 ﻿using DocumentManage.IServices;
 using DocumentManage.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 using System.Security.Cryptography.Xml;
 
 namespace DocumentManage.Services
@@ -90,6 +91,16 @@ namespace DocumentManage.Services
                 m.Email,
                 m.Position.Positionn
             });
+        }
+        public dynamic Login(Profile profile)
+        {
+            var data = _context.Profiles.FirstOrDefault(m => m.Email == profile.Email 
+                                                      && m.Password == profile.Password);
+            if (data == null)
+            {
+                return false;
+            }
+            return data;
         }
     }
 }

@@ -84,5 +84,19 @@ namespace DocumentManage.Controllers
                 return e.Message;
             }
         }
+        [Route("Login")]
+        [HttpPost]
+        public dynamic Login(Profile profile)
+        {
+            try
+            {
+                var data = _profileServices.Login(profile);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
     }
 }

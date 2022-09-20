@@ -44,37 +44,48 @@ namespace DocumentManage.Services
         }
         public dynamic AddNew(Document document)
         {
-            Document doc = new Document
-            {        
-                Sender = document.Sender,
-                DateSend = document.DateSend,
-                Receiver = document.Receiver,
-                Deadline = document.Deadline,
-                Note = document.Note,
-                DocumentFile = document.DocumentFile,
-                TypeId = document.TypeId,
-                UrgencyId = document.UrgencyId,
-                StatusId = document.StatusId
-            };
-            //var docpro = new List<Request>();
-            _context.Documents.Add(doc);
-            _context.SaveChanges();
+            //Document doc = new Document
+            //{
+            //    Sender = document.Sender,
+            //    DateSend = document.DateSend,
+            //    Receiver = document.Receiver,
+            //    Deadline = document.Deadline,
+            //    Note = document.Note,
+            //    DocumentFile = document.DocumentFile,
+            //    TypeId = document.TypeId,
+            //    UrgencyId = document.UrgencyId,
+            //    StatusId = document.StatusId
+            //};
+            //_context.Documents.Add(doc);
+            //_context.SaveChanges();
+            //var a = document.Profiles.ToList();
+            //var pro = _context.Profiles.ToList();
+            //foreach (var item in a)
+            //{
+            //    var data = _context.Profiles.Where(c => c.Id == item.Id);
+            //    doc.Profiles.Add(data.FirstOrDefault());
+            //}
+            //_context.Update(doc);
+            //_context.SaveChanges();
+            //return doc;
 
-            var a = document.Profiles.ToList();
-            var pro = _context.Profiles.ToList();
-            foreach (var item in a)
+            var prof = new List<Profile>();
+            //var doc = new List<Document>();
+            var res = new List<Request>();
+            _context.Add(document);
+            _context.SaveChangesAsync();
+             foreach( var id in prof)
             {
-                //var items = new Request();
-                //{
-                //    items.DocumentId = doc.Id;
-                //    items.ProfileId = item.Id;
-                //}
-                var data = _context.Profiles.Where(c => c.Id == item.Id);    
-                doc.Profiles.Add(data.FirstOrDefault());
+                var item = new Request();        
+                {
+                    item.DocumentId = document.Id;
+                    item.ProfileId = id.Id;
+                }
+                res.Add(item);
             }
-            _context.Update(doc);
-            _context.SaveChanges();
-            return doc;
+            _context.Add(res);
+            _context.SaveChangesAsync();
+            return true;
         }
         public dynamic Update(Document document)
         {
