@@ -43,7 +43,7 @@ namespace DocumentManage.Services
             return output;
         }
         public dynamic AddNew(Document document)
-        {
+        {         
             Document doc = new Document
             {
                 Sender = document.Sender,
@@ -56,8 +56,8 @@ namespace DocumentManage.Services
                 UrgencyId = document.UrgencyId,
                 StatusId = document.StatusId
             };
-            _context.Documents.Add(doc);
-            _context.SaveChanges();
+            //_context.Documents.Add(doc);
+            //_context.SaveChanges();
             var a = document.Profiles.ToList();   
             foreach (var item in a)
             {

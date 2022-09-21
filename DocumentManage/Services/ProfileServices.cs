@@ -62,10 +62,9 @@ namespace DocumentManage.Services
         }
         public dynamic Update(Profile profile)
         {       
-            var check = _context.Profiles.Where(c => c.PhoneNumber == profile.PhoneNumber);
+            //var check = _context.Profiles.Where(c => c.PhoneNumber == profile.PhoneNumber);
             if (profile.PhoneNumber.All(char.IsDigit))
             {
-                //profile.PhoneNumber.All(char.IsDigit);
                 var data = _context.Profiles.FirstOrDefault(m => m.Id == profile.Id);
                 if (data == null)
                 {
