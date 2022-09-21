@@ -17,10 +17,8 @@ namespace DocumentManage.Models
         public string? Email { get; set; }
         public string? Password { get; set; }
         public int? PositionId { get; set; }
-        public int? WStatusId { get; set; }
 
         public virtual Position? Position { get; set; }
-        public virtual WStatus? WStatus { get; set; }
 
         public virtual ICollection<Document> Documents { get; set; }
     }

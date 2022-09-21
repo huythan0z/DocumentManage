@@ -22,13 +22,12 @@ namespace DocumentManage.Models
         public virtual DbSet<Status> Statuses { get; set; } = null!;
         public virtual DbSet<Type> Types { get; set; } = null!;
         public virtual DbSet<Urgency> Urgencies { get; set; } = null!;
-        public virtual DbSet<WStatus> WStatuses { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=TAKA\\SQLEXPRESS;Database=DocumentManage;Trusted_Connection=True;");
             }
         }
@@ -119,19 +118,11 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.PositionId).HasColumnName("PositionID");
 
-                entity.Property(e => e.WStatusId).HasColumnName("wStatusID");
-
                 entity.HasOne(d => d.Position)
                     .WithMany(p => p.Profiles)
                     .HasForeignKey(d => d.PositionId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Profile_Position");
-
-                entity.HasOne(d => d.WStatus)
-                    .WithMany(p => p.Profiles)
-                    .HasForeignKey(d => d.WStatusId)
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .HasConstraintName("FK_Profile_wStatus");
             });
 
             modelBuilder.Entity<Status>(entity =>
@@ -161,18 +152,6 @@ namespace DocumentManage.Models
                 entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Urgencyy).HasMaxLength(50);
-            });
-
-            modelBuilder.Entity<WStatus>(entity =>
-            {
-                entity.ToTable("wStatus");
-
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.WStatuss)
-                    .HasMaxLength(10)
-                    .HasColumnName("wStatuss")
-                    .IsFixedLength();
             });
 
             OnModelCreatingPartial(modelBuilder);

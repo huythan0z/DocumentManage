@@ -36,8 +36,8 @@ namespace DocumentManage.Services
                                            p.Address,
                                            p.PhoneNumber,
                                            p.Email,
-                                           p.Position.Positionn,
-                                           p.WStatus.WStatuss
+                                           p.Position.Positionn
+                                 
                                        }
                          };
             return output;
@@ -118,12 +118,10 @@ namespace DocumentManage.Services
             {
                 var data1 = _context.Profiles.Where(c => c.Id == item.Id);
                 data.Profiles.Add(data1.FirstOrDefault());
-              
             }
             _context.Update(data);
             _context.SaveChanges();
             return data;
-
         }
         public dynamic Delete(Document document)
         {

@@ -1,8 +1,11 @@
 ﻿using DocumentManage.IServices;
 using DocumentManage.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection.Emit;
 using System.Security.Cryptography.Xml;
+using System.Linq;
 
 namespace DocumentManage.Services
 {
@@ -26,7 +29,7 @@ namespace DocumentManage.Services
                              item.Email,
                              item.Password,
                              item.Position.Positionn,
-                             item.WStatus.WStatuss,
+                         
                              document = from d in item.Documents
                                        select new
                                        {
@@ -52,6 +55,9 @@ namespace DocumentManage.Services
         }
         public dynamic Update(Profile profile)
         {
+            
+            ////var check = _context.Profiles.Where(c => c.PhoneNumber == profile.PhoneNumber);
+            profile.PhoneNumber.All(char.IsDigit);
             var data = _context.Profiles.FirstOrDefault(m => m.Id == profile.Id);
             if (data == null)
             {
@@ -63,7 +69,6 @@ namespace DocumentManage.Services
             data.Email = profile.Email;
             data.Password = profile.Password;
             data.PositionId = profile.PositionId;
-            data.WStatus = profile.WStatus;
 
             _context.Profiles.Update(data);
             _context.SaveChanges();
