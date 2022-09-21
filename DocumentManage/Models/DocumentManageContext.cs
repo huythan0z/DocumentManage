@@ -113,6 +113,10 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.Password).HasMaxLength(50);
 
+                entity.Property(e => e.PhoneNumber)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
                 entity.Property(e => e.PositionId).HasColumnName("PositionID");
 
                 entity.Property(e => e.WStatusId).HasColumnName("wStatusID");
