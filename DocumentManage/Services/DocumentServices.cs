@@ -37,7 +37,7 @@ namespace DocumentManage.Services
                                            p.PhoneNumber,
                                            p.Email,
                                            p.Position.Positionn
-                                 
+
                                        }
                          };
             return output;
@@ -56,11 +56,9 @@ namespace DocumentManage.Services
                 UrgencyId = document.UrgencyId,
                 StatusId = document.StatusId
             };
-          
             _context.Documents.Add(doc);
             _context.SaveChanges();
-            var a = document.Profiles.ToList();
-            var pro = _context.Profiles.ToList();
+            var a = document.Profiles.ToList();   
             foreach (var item in a)
             {
                 var data = _context.Profiles.Where(c => c.Id == item.Id);

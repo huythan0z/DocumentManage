@@ -49,30 +49,42 @@ namespace DocumentManage.Services
         }
         public dynamic AddNew(Profile profile)
         {
-            _context.Profiles.Add(profile);
-            _context.SaveChanges();
-            return profile;
-        }
-        public dynamic Update(Profile profile)
-        {
-            
-            ////var check = _context.Profiles.Where(c => c.PhoneNumber == profile.PhoneNumber);
-            profile.PhoneNumber.All(char.IsDigit);
-            var data = _context.Profiles.FirstOrDefault(m => m.Id == profile.Id);
-            if (data == null)
+            if (profile.PhoneNumber.All(char.IsDigit))
+            {
+                _context.Profiles.Add(profile);
+                _context.SaveChanges();
+                return profile;
+            }
+            else
             {
                 return false;
             }
-            data.Name = profile.Name;
-            data.Address = profile.Address;
-            data.PhoneNumber = profile.PhoneNumber;
-            data.Email = profile.Email;
-            data.Password = profile.Password;
-            data.PositionId = profile.PositionId;
-
-            _context.Profiles.Update(data);
-            _context.SaveChanges();
-            return true;
+        }
+        public dynamic Update(Profile profile)
+        {       
+            var check = _context.Profiles.Where(c => c.PhoneNumber == profile.PhoneNumber);
+            if (profile.PhoneNumber.All(char.IsDigit))
+            {
+                //profile.PhoneNumber.All(char.IsDigit);
+                var data = _context.Profiles.FirstOrDefault(m => m.Id == profile.Id);
+                if (data == null)
+                {
+                    return false;
+                }
+                data.Name = profile.Name;
+                data.Address = profile.Address;
+                data.PhoneNumber = profile.PhoneNumber;
+                data.Email = profile.Email;
+                data.Password = profile.Password;
+                data.PositionId = profile.PositionId;
+                _context.Profiles.Update(data);
+                _context.SaveChanges();
+                return data;
+            }
+            else
+            {
+                return false;
+            }
         }
         public dynamic Delete(Profile profile)
         {
