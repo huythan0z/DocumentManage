@@ -47,19 +47,5 @@ namespace DocumentManage.Services
             return true;
         }
 
-        //public dynamic AddNew(System.Type type)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public dynamic Update(System.Type type)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public dynamic Delete(System.Type type)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }

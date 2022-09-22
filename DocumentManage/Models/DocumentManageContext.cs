@@ -16,6 +16,7 @@ namespace DocumentManage.Models
         {
         }
 
+        public virtual DbSet<Department> Departments { get; set; } = null!;
         public virtual DbSet<Document> Documents { get; set; } = null!;
         public virtual DbSet<Position> Positions { get; set; } = null!;
         public virtual DbSet<Profile> Profiles { get; set; } = null!;
@@ -27,26 +28,41 @@ namespace DocumentManage.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=TAKA\\SQLEXPRESS;Database=DocumentManage;Trusted_Connection=True;");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Department>(entity =>
+            {
+                entity.ToTable("Department");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.DepartmentName)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+            });
+
             modelBuilder.Entity<Document>(entity =>
             {
                 entity.ToTable("Document");
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.DateSend).HasColumnType("date");
+                entity.Property(e => e.ArrivalDate).HasColumnType("date");
 
-                entity.Property(e => e.Deadline).HasColumnType("date");
+                entity.Property(e => e.ExpirationDate).HasColumnType("date");
 
                 entity.Property(e => e.Receiver).HasMaxLength(50);
 
                 entity.Property(e => e.Sender).HasMaxLength(50);
+
+                entity.Property(e => e.SignDate).HasColumnType("date");
+
+                entity.Property(e => e.Signer).HasMaxLength(50);
 
                 entity.Property(e => e.StatusId).HasColumnName("StatusID");
 
@@ -70,6 +86,23 @@ namespace DocumentManage.Models
                     .HasForeignKey(d => d.UrgencyId)
                     .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Document_Urgency");
+
+                entity.HasMany(d => d.Departments)
+                    .WithMany(p => p.Documents)
+                    .UsingEntity<Dictionary<string, object>>(
+                        "DocumentDepartment",
+                        l => l.HasOne<Department>().WithMany().HasForeignKey("DepartmentId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_DocumentDepartment_Department"),
+                        r => r.HasOne<Document>().WithMany().HasForeignKey("DocumentId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_DocumentDepartment_Document"),
+                        j =>
+                        {
+                            j.HasKey("DocumentId", "DepartmentId");
+
+                            j.ToTable("DocumentDepartment");
+
+                            j.IndexerProperty<int>("DocumentId").HasColumnName("DocumentID");
+
+                            j.IndexerProperty<int>("DepartmentId").HasColumnName("DepartmentID");
+                        });
 
                 entity.HasMany(d => d.Profiles)
                     .WithMany(p => p.Documents)
@@ -106,6 +139,8 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.Address).HasMaxLength(50);
 
+                entity.Property(e => e.DepartmentId).HasColumnName("DepartmentID");
+
                 entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.Name).HasMaxLength(50);
@@ -117,6 +152,11 @@ namespace DocumentManage.Models
                     .IsFixedLength();
 
                 entity.Property(e => e.PositionId).HasColumnName("PositionID");
+
+                entity.HasOne(d => d.Department)
+                    .WithMany(p => p.Profiles)
+                    .HasForeignKey(d => d.DepartmentId)
+                    .HasConstraintName("FK_Profile_Department");
 
                 entity.HasOne(d => d.Position)
                     .WithMany(p => p.Profiles)

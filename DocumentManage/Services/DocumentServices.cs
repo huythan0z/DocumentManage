@@ -21,7 +21,7 @@ namespace DocumentManage.Services
                          {
                              item.Id,
                              item.Sender,
-                             item.DateSend,
+                             //item.DateSend,
                              item.Receiver,
                              item.Note,
                              item.DocumentFile,
@@ -37,28 +37,25 @@ namespace DocumentManage.Services
                                            p.PhoneNumber,
                                            p.Email,
                                            p.Position.Positionn
-
                                        }
                          };
             return output;
         }
         public dynamic AddNew(Document document)
-        {         
+        {
             Document doc = new Document
             {
                 Sender = document.Sender,
-                DateSend = document.DateSend,
+               // DateSend = document.DateSend,
                 Receiver = document.Receiver,
-                Deadline = document.Deadline,
+               // Deadline = document.Deadline,
                 Note = document.Note,
                 DocumentFile = document.DocumentFile,
                 TypeId = document.TypeId,
                 UrgencyId = document.UrgencyId,
                 StatusId = document.StatusId
             };
-            //_context.Documents.Add(doc);
-            //_context.SaveChanges();
-            var a = document.Profiles.ToList();   
+            var a = document.Profiles.ToList();
             foreach (var item in a)
             {
                 var data = _context.Profiles.Where(c => c.Id == item.Id);
@@ -95,9 +92,9 @@ namespace DocumentManage.Services
             }
             data.Id = document.Id;
             data.Sender = document.Sender;
-            data.DateSend = document.DateSend;
+           // data.DateSend = document.DateSend;
             data.Receiver = document.Receiver;
-            data.Deadline = document.Deadline;
+          //  data.Deadline = document.Deadline;
             data.Note = document.Note;
             data.DocumentFile = document.DocumentFile;
             data.TypeId = document.TypeId;

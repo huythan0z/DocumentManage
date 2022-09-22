@@ -29,21 +29,20 @@ namespace DocumentManage.Services
                              item.Email,
                              item.Password,
                              item.Position.Positionn,
-                         
                              document = from d in item.Documents
-                                       select new
-                                       {
-                                           d.Id,
-                                           d.Sender,
-                                           d.DateSend,
-                                           d.Receiver,
-                                           d.Deadline,
-                                           d.Note,
-                                           d.DocumentFile,
-                                           d.Type.DocumentType,
-                                           d.Urgency.Urgencyy,
-                                           d.Status.Statuss
-                                       }
+                                        select new
+                                        {
+                                            d.Id,
+                                            d.Sender,
+                                            //d.DateSend,
+                                            d.Receiver,
+                                           // d.Deadline,
+                                            d.Note,
+                                            d.DocumentFile,
+                                            d.Type.DocumentType,
+                                            d.Urgency.Urgencyy,
+                                            d.Status.Statuss
+                                        }
                          };
             return output;
         }
@@ -61,8 +60,7 @@ namespace DocumentManage.Services
             }
         }
         public dynamic Update(Profile profile)
-        {       
-            //var check = _context.Profiles.Where(c => c.PhoneNumber == profile.PhoneNumber);
+        {
             if (profile.PhoneNumber.All(char.IsDigit))
             {
                 var data = _context.Profiles.FirstOrDefault(m => m.Id == profile.Id);
@@ -110,7 +108,7 @@ namespace DocumentManage.Services
         }
         public dynamic Login(Profile profile)
         {
-            var data = _context.Profiles.FirstOrDefault(m => m.Email == profile.Email 
+            var data = _context.Profiles.FirstOrDefault(m => m.Email == profile.Email
                                                       && m.Password == profile.Password);
             if (data == null)
             {

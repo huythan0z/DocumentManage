@@ -34,8 +34,8 @@ namespace DocumentManage.Controllers
         {
             try
             {
-                _profileServices.AddNew(profile);
-                return Ok(profile);
+                var data = _profileServices.AddNew(profile);
+                return Ok(data);
             }
             catch (Exception e)
             {
