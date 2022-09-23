@@ -15,13 +15,13 @@ namespace DocumentManage.Controllers
         {
             _documentServices = documentServices;
         }
-        [Route("All")]
+        [Route("DocumentGo")]
         [HttpGet]
-        public dynamic GetAll()
+        public dynamic GetdocGo()
         {
             try
             {
-                var data = _documentServices.GetAll();
+                var data = _documentServices.GetDocGo();
                 return Ok(data);
             }
             catch (Exception e)
@@ -29,6 +29,21 @@ namespace DocumentManage.Controllers
                 return e.Message;
             }
         }
+        [Route("DocumentArrive")]
+        [HttpGet]
+        public dynamic GetdocArrive()
+        {
+            try
+            {
+                var data = _documentServices.GetDocArrive();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
         [Route("AddNew")]
         [HttpPost]
         public dynamic AddNew(Models.Document document)
@@ -36,7 +51,7 @@ namespace DocumentManage.Controllers
             
             try
             {
-                var data = _documentServices.AddNew(document);
+                var data = _documentServices.AddNewArrive(document);
                 return Ok(data);
             }
             catch (Exception e)

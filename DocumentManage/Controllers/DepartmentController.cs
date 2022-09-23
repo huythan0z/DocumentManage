@@ -7,12 +7,12 @@ namespace DocumentManage.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class StatusController : ControllerBase
+    public class DepartmentController : ControllerBase
     {
-        private readonly IStatusServices _statusServices;
-        public StatusController(IStatusServices statusServices)
+        private readonly IDepartmentServices _departmentServices;
+        public DepartmentController(IDepartmentServices departmentServices)
         {
-            _statusServices = statusServices;
+            _departmentServices = departmentServices;
         }
         [Route("All")]
         [HttpGet]
@@ -20,7 +20,7 @@ namespace DocumentManage.Controllers
         {
             try
             {
-                var data = _statusServices.GetAll();
+                var data = _departmentServices.GetAll();
                 return Ok(data);
             }
             catch (Exception e)
@@ -30,11 +30,11 @@ namespace DocumentManage.Controllers
         }
         [Route("AddNew")]
         [HttpPost]
-        public dynamic AddNew(Status status)
+        public dynamic AddNew(Department department)
         {
             try
             {
-                var data = _statusServices.AddNew(status);
+                var data = _departmentServices.AddNew(department);
                 return Ok(data);
             }
             catch (Exception e)
@@ -44,11 +44,11 @@ namespace DocumentManage.Controllers
         }
         [Route("Update")]
         [HttpPut]
-        public dynamic Update(Status status)
+        public dynamic Update(Department department)
         {
             try
             {
-                var data = _statusServices.Update(status);
+                var data = _departmentServices.Update(department);
                 return Ok(data);
             }
             catch (Exception e)
@@ -58,11 +58,11 @@ namespace DocumentManage.Controllers
         }
         [Route("Delete")]
         [HttpDelete]
-        public dynamic Delete(Status status)
+        public dynamic Delete(Department department)
         {
             try
             {
-                var data = _statusServices.Delete(status);
+                var data = _departmentServices.Delete(department);
                 return Ok(data);
             }
             catch (Exception e)

@@ -13,18 +13,50 @@ namespace DocumentManage.Services
         {
             _context = context;
         }
-        public IQueryable<dynamic> GetAll()
+        public IQueryable<dynamic> GetDocGo()
         {
-            var items = _context.Documents.Include(u => u.Profiles);
+            var items = _context.Documents.Include(u => u.Departments);
             var output = from item in items
+                         where item.ArrivalDate == null
                          select new
                          {
                              item.Id,
+                             item.Address,
                              item.Sender,
-                             //item.DateSend,
-                             item.Receiver,
+                             item.Signer,
+                             item.SignDate,
+                             item.ExpirationDate,
                              item.Note,
                              item.DocumentFile,
+                             item.Receiver,
+                             item.Type.DocumentType,
+                             item.Urgency.Urgencyy,
+                             item.Status.Statuss,
+                             department = from d in item.Departments
+                                          select new
+                                          {
+                                              d.DepartmentName,
+                                          }
+                         };
+            return output;
+
+        }
+        public IQueryable<dynamic> GetDocArrive()
+        {
+            var items = _context.Documents.Include(u => u.Profiles);
+            var output = from item in items
+                         where item.ArrivalDate != null
+                         select new
+                         {
+                             item.Id,
+                             item.Address,
+                             item.Signer,
+                             item.SignDate,
+                             item.ArrivalDate,
+                             item.ExpirationDate,
+                             item.Note,
+                             item.DocumentFile,
+                             item.Receiver,
                              item.Type.DocumentType,
                              item.Urgency.Urgencyy,
                              item.Status.Statuss,
@@ -40,15 +72,42 @@ namespace DocumentManage.Services
                                        }
                          };
             return output;
+
         }
-        public dynamic AddNew(Document document)
+        public dynamic AddNewArrive(Document document)
+        {
+            Document doc = new Document
+            {
+                Address = document.Address,
+                Signer = document.Signer,
+                SignDate = document.SignDate,
+                ArrivalDate = document.ArrivalDate,
+                ExpirationDate = document.ExpirationDate,
+                Note = document.Note,
+                DocumentFile = document.DocumentFile,
+                Receiver = document.Receiver,
+                TypeId = document.TypeId,
+                UrgencyId = document.UrgencyId,
+                StatusId = document.StatusId
+            };
+            var a = document.Profiles.ToList();
+            foreach (var item in a)
+            {
+                var data = _context.Profiles.Where(c => c.Id == item.Id);
+                doc.Profiles.Add(data.FirstOrDefault());
+            }
+            _context.Update(doc);
+            _context.SaveChanges();
+            return doc;
+        }
+        public dynamic AddNewGo(Document document)
         {
             Document doc = new Document
             {
                 Sender = document.Sender,
-               // DateSend = document.DateSend,
+                // DateSend = document.DateSend,
                 Receiver = document.Receiver,
-               // Deadline = document.Deadline,
+                // Deadline = document.Deadline,      
                 Note = document.Note,
                 DocumentFile = document.DocumentFile,
                 TypeId = document.TypeId,
@@ -64,24 +123,6 @@ namespace DocumentManage.Services
             _context.Update(doc);
             _context.SaveChanges();
             return doc;
-
-            //var prof = document.Profiles.ToList();
-            //var doc = new List<Document>();
-            //var res = new List<Request>();
-            //_context.Add(doc);
-            //_context.SaveChangesAsync();
-            //foreach (var id in prof)
-            //{
-            //    var item = new Request();
-            //    {
-            //        item.DocumentId = document.Id;
-            //        item.ProfileId = id.Id;
-            //    }
-            //    res.Add(item);
-            //}
-            //_context.Add(res);
-            //_context.SaveChangesAsync();
-            //return true;
         }
         public dynamic Update(Document document)
         {
@@ -92,9 +133,9 @@ namespace DocumentManage.Services
             }
             data.Id = document.Id;
             data.Sender = document.Sender;
-           // data.DateSend = document.DateSend;
+            // data.DateSend = document.DateSend;
             data.Receiver = document.Receiver;
-          //  data.Deadline = document.Deadline;
+            //  data.Deadline = document.Deadline;
             data.Note = document.Note;
             data.DocumentFile = document.DocumentFile;
             data.TypeId = document.TypeId;
