@@ -191,7 +191,6 @@ namespace DocumentManage.Services
             data.TypeId = document.TypeId;
             data.UrgencyId = document.UrgencyId;
             data.StatusId = document.StatusId;
-
             var del = data.Profiles.ToList();
             foreach (var i in del)
             {
