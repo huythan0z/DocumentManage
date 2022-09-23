@@ -4,6 +4,7 @@ namespace DocumentManage.IServices
 {
     public interface IDocumentServices
     {
+        IQueryable<dynamic> GetAll();
         IQueryable<dynamic> GetDocGo();
         IQueryable<dynamic> GetDocArrive();
         dynamic AddNewGo(Document document);

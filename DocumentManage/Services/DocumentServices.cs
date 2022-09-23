@@ -3,6 +3,8 @@ using DocumentManage.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 
 namespace DocumentManage.Services
 {
@@ -12,6 +14,11 @@ namespace DocumentManage.Services
         public DocumentServices(DocumentManageContext context)
         {
             _context = context;
+        }
+        public IQueryable<dynamic> GetAll()
+        {
+             var output = _context.Documents.OrderByDescending(c => c.Id);
+            return output;
         }
         public IQueryable<dynamic> GetDocGo()
         {
@@ -43,9 +50,11 @@ namespace DocumentManage.Services
         }
         public IQueryable<dynamic> GetDocArrive()
         {
+
             var items = _context.Documents.Include(u => u.Profiles);
             var output = from item in items
                          where item.ArrivalDate != null
+                         orderby item.Id descending 
                          select new
                          {
                              item.Id,
@@ -76,7 +85,7 @@ namespace DocumentManage.Services
         }
         public dynamic AddNewArrive(Document document)
         {
-            var prof = _context.Profiles;
+            var items = _context.Documents.Include(u => u.Profiles);
             Document doc = new Document
             {
                 Address = document.Address,
@@ -102,8 +111,7 @@ namespace DocumentManage.Services
             return doc;
         }
         public dynamic AddNewGo(Document document)
-        {
-           
+        {     
             Document doc = new Document
             {
                 Address = document.Address,
@@ -128,11 +136,10 @@ namespace DocumentManage.Services
             _context.Update(doc);
             _context.SaveChanges();
             return doc;
-
         }
         public dynamic UpdateDocGo(Document document)
         {
-            var data = _context.Documents.Include(c => c.Profiles).FirstOrDefault(m => m.Id == document.Id);
+            var data = _context.Documents.Include(c => c.Departments).FirstOrDefault(m => m.Id == document.Id);
             if (data == null)
             {
                 return false;
@@ -166,7 +173,6 @@ namespace DocumentManage.Services
             _context.SaveChanges();
             return data;
         }
-
         public dynamic UpdateDocArrive(Document document)
         {
             var data = _context.Documents.Include(c => c.Profiles).FirstOrDefault(m => m.Id == document.Id);

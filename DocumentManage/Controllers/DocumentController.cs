@@ -15,6 +15,21 @@ namespace DocumentManage.Controllers
         {
             _documentServices = documentServices;
         }
+        [Route("GetBy...")]
+        [HttpGet]
+        public dynamic GetAll()
+        {
+            try
+            {
+                var data = _documentServices.GetAll();
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+
+        }
         [Route("DocumentGo")]
         [HttpGet]
         public dynamic GetdocGo()
