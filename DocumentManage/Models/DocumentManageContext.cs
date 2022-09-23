@@ -41,9 +41,7 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.DepartmentName)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+                entity.Property(e => e.DepartmentName).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Document>(entity =>
@@ -92,7 +90,7 @@ namespace DocumentManage.Models
                     .UsingEntity<Dictionary<string, object>>(
                         "DocumentDepartment",
                         l => l.HasOne<Department>().WithMany().HasForeignKey("DepartmentId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_DocumentDepartment_Department"),
-                        r => r.HasOne<Document>().WithMany().HasForeignKey("DocumentId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_DocumentDepartment_Document"),
+                        r => r.HasOne<Document>().WithMany().HasForeignKey("DocumentId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_DocumentDepartment_Document1"),
                         j =>
                         {
                             j.HasKey("DocumentId", "DepartmentId");
@@ -156,6 +154,7 @@ namespace DocumentManage.Models
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Profiles)
                     .HasForeignKey(d => d.DepartmentId)
+                    .OnDelete(DeleteBehavior.Cascade)
                     .HasConstraintName("FK_Profile_Department");
 
                 entity.HasOne(d => d.Position)
@@ -171,9 +170,7 @@ namespace DocumentManage.Models
 
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Statuss)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
+                entity.Property(e => e.Statuss).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Type>(entity =>

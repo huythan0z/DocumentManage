@@ -43,12 +43,25 @@ namespace DocumentManage.Controllers
                 return e.Message;
             }
         }
-
-        [Route("AddNew")]
+        [Route("AddNewGo")]
         [HttpPost]
-        public dynamic AddNew(Models.Document document)
+        public dynamic AddNewGo(Models.Document document)
         {
-            
+            try
+            {
+                var data = _documentServices.AddNewGo(document);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("AddNewArrive")]
+        [HttpPost]
+        public dynamic AddNewArrive(Models.Document document)
+        {
+
             try
             {
                 var data = _documentServices.AddNewArrive(document);
@@ -59,13 +72,27 @@ namespace DocumentManage.Controllers
                 return e.Message;
             }
         }
-        [Route("Update")]
+        [Route("UpdateDocGo")]
         [HttpPut]
-        public dynamic Update(Models.Document document)
+        public dynamic UpdateDocGo(Models.Document document)
         {
             try
             {
-                var data = _documentServices.Update(document);
+                var data = _documentServices.UpdateDocGo(document);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("UpdateDocArrive")]
+        [HttpPut]
+        public dynamic UpdateDocArrive(Models.Document document)
+        {
+            try
+            {
+                var data = _documentServices.UpdateDocArrive(document);
                 return Ok(data);
             }
             catch (Exception e)

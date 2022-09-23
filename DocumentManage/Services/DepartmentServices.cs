@@ -11,6 +11,10 @@ namespace DocumentManage.Services
         {
             _context = context;
         }
+        public IQueryable<dynamic> GetAll()
+        {
+            return _context.Departments.Include(c => c.Profiles);
+        }
         public dynamic AddNew(Department department)
         {
             _context.Departments.Add(department);
@@ -28,11 +32,6 @@ namespace DocumentManage.Services
             _context.Departments.Remove(data);
             _context.SaveChanges();
             return true;
-        }
-
-        public IQueryable<dynamic> GetAll()
-        {
-            return _context.Departments.Include(c => c.Profiles);
         }
 
         public dynamic Update(Department department)

@@ -39,7 +39,7 @@ namespace DocumentManage.Services
                                           }
                          };
             return output;
-
+            return null;
         }
         public IQueryable<dynamic> GetDocArrive()
         {
@@ -76,6 +76,7 @@ namespace DocumentManage.Services
         }
         public dynamic AddNewArrive(Document document)
         {
+            var prof = _context.Profiles;
             Document doc = new Document
             {
                 Address = document.Address,
@@ -102,42 +103,85 @@ namespace DocumentManage.Services
         }
         public dynamic AddNewGo(Document document)
         {
+           
             Document doc = new Document
             {
+                Address = document.Address,
                 Sender = document.Sender,
-                // DateSend = document.DateSend,
-                Receiver = document.Receiver,
-                // Deadline = document.Deadline,      
+                Signer = document.Signer,
+                SignDate = document.SignDate,
+                ArrivalDate = null,
+                ExpirationDate = document.ExpirationDate,
                 Note = document.Note,
                 DocumentFile = document.DocumentFile,
+                Receiver = document.Receiver,
                 TypeId = document.TypeId,
                 UrgencyId = document.UrgencyId,
                 StatusId = document.StatusId
             };
-            var a = document.Profiles.ToList();
+            var a = document.Departments.ToList();
             foreach (var item in a)
             {
-                var data = _context.Profiles.Where(c => c.Id == item.Id);
-                doc.Profiles.Add(data.FirstOrDefault());
+                var data = _context.Departments.Where(c => c.Id == item.Id);
+                doc.Departments.Add(data.FirstOrDefault());
             }
             _context.Update(doc);
             _context.SaveChanges();
             return doc;
+
         }
-        public dynamic Update(Document document)
+        public dynamic UpdateDocGo(Document document)
         {
             var data = _context.Documents.Include(c => c.Profiles).FirstOrDefault(m => m.Id == document.Id);
             if (data == null)
             {
                 return false;
             }
-            data.Id = document.Id;
+            data.Address = document.Address;
             data.Sender = document.Sender;
-            // data.DateSend = document.DateSend;
-            data.Receiver = document.Receiver;
-            //  data.Deadline = document.Deadline;
+            data.Signer = document.Signer;
+            data.SignDate = document.SignDate;
+            data.ArrivalDate = null;
+            data.ExpirationDate = document.ExpirationDate;
             data.Note = document.Note;
             data.DocumentFile = document.DocumentFile;
+            data.Receiver = document.Receiver;
+            data.TypeId = document.TypeId;
+            data.UrgencyId = document.UrgencyId;
+            data.StatusId = document.StatusId;
+            var del = data.Departments.ToList();
+            foreach (var i in del)
+            {
+                data.Departments.Remove(i);
+            }
+            _context.Update(data);
+            _context.SaveChanges();
+            var a = document.Departments.ToList();
+            foreach (var item in a)
+            {
+                var data1 = _context.Departments.Where(c => c.Id == item.Id);
+                data.Departments.Add(data1.FirstOrDefault());
+            }
+            _context.Update(data);
+            _context.SaveChanges();
+            return data;
+        }
+
+        public dynamic UpdateDocArrive(Document document)
+        {
+            var data = _context.Documents.Include(c => c.Profiles).FirstOrDefault(m => m.Id == document.Id);
+            if (data == null)
+            {
+                return false;
+            }
+            data.Address = document.Address;
+            data.Signer = document.Signer;
+            data.SignDate = document.SignDate;
+            data.ArrivalDate = document.ArrivalDate;
+            data.ExpirationDate = document.ExpirationDate;
+            data.Note = document.Note;
+            data.DocumentFile = document.DocumentFile;
+            data.Receiver = document.Receiver;
             data.TypeId = document.TypeId;
             data.UrgencyId = document.UrgencyId;
             data.StatusId = document.StatusId;
