@@ -35,6 +35,7 @@ builder.Services.AddScoped<IProfileServices, ProfileServices>();
 builder.Services.AddScoped<IRequestServices, RequestServices>();
 builder.Services.AddScoped<IDepartmentServices, DepartmentServices>();
 
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(

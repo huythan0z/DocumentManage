@@ -28,7 +28,6 @@ namespace DocumentManage.Controllers
             {
                 return e.Message;
             }
-
         }
         [Route("DocumentGo")]
         [HttpGet]
@@ -58,13 +57,41 @@ namespace DocumentManage.Controllers
                 return e.Message;
             }
         }
-        [Route("AddNewGo")]
+        [Route("AddNewGoOut")]
         [HttpPost]
-        public dynamic AddNewGo(Models.Document document)
+        public dynamic AddNewGoOut(Models.Document document)
         {
             try
             {
-                var data = _documentServices.AddNewGo(document);
+                var data = _documentServices.AddNewGoOut(document);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("AddNewGoDepart")]
+        [HttpPost]
+        public dynamic AddNewGoDepart(Models.Document document)
+        {
+            try
+            {
+                var data = _documentServices.AddNewGoDepart(document);
+                return Ok(data);
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+        [Route("AddNewGoProfile")]
+        [HttpPost]
+        public dynamic AddNewGoProfile(Models.Document document)
+        {
+            try
+            {
+                var data = _documentServices.AddNewGoProfile(document);
                 return Ok(data);
             }
             catch (Exception e)
@@ -76,7 +103,6 @@ namespace DocumentManage.Controllers
         [HttpPost]
         public dynamic AddNewArrive(Models.Document document)
         {
-
             try
             {
                 var data = _documentServices.AddNewArrive(document);

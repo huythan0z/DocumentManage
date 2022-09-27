@@ -17,8 +17,9 @@ namespace DocumentManage.Services
         }
         public IQueryable<dynamic> GetAll()
         {
-             var output = _context.Documents.OrderByDescending(c => c.Id);
+            var output = _context.Documents.OrderByDescending(c => c.Id);
             return output;
+
         }
         public IQueryable<dynamic> GetDocGo()
         {
@@ -110,33 +111,91 @@ namespace DocumentManage.Services
             _context.SaveChanges();
             return doc;
         }
-        public dynamic AddNewGo(Document document)
-        {     
+        public dynamic AddNewGoOut(Document document)
+        {
             Document doc = new Document
             {
-                Address = document.Address,
-                Sender = document.Sender,
+                Address = document.Address, 
                 Signer = document.Signer,
                 SignDate = document.SignDate,
                 ArrivalDate = null,
                 ExpirationDate = document.ExpirationDate,
                 Note = document.Note,
                 DocumentFile = document.DocumentFile,
+                Sender = document.Sender,
                 Receiver = document.Receiver,
                 TypeId = document.TypeId,
                 UrgencyId = document.UrgencyId,
                 StatusId = document.StatusId
             };
-            var a = document.Departments.ToList();
-            foreach (var item in a)
-            {
-                var data = _context.Departments.Where(c => c.Id == item.Id);
-                doc.Departments.Add(data.FirstOrDefault());
-            }
-            _context.Update(doc);
+            _context.Documents.Add(doc);
             _context.SaveChanges();
             return doc;
         }
+        public dynamic AddNewGoProfile(Document document)
+        {
+            if (document.Address == null || document.Address == "")
+            {
+                Document doc = new Document
+                {
+                    Address = null,
+                    Signer = document.Signer,
+                    SignDate = document.SignDate,
+                    ArrivalDate = null,
+                    ExpirationDate = document.ExpirationDate,
+                    Note = document.Note,
+                    DocumentFile = document.DocumentFile,
+                    Receiver = document.Receiver,
+                    Sender = document.Sender,
+                    TypeId = document.TypeId,
+                    UrgencyId = document.UrgencyId,
+                    StatusId = document.StatusId
+                };
+                var a = document.Profiles.ToList();
+                Console.WriteLine(a);
+                foreach (var item in a)
+                {
+                    var data = _context.Profiles.Where(c => c.Id == item.Id);
+                    doc.Profiles.Add(data.FirstOrDefault());
+                }
+                _context.Documents.Update(doc);
+                _context.SaveChanges();
+                return doc;
+            }
+            return false;
+        }
+        public dynamic AddNewGoDepart(Document document)
+        {
+            if (document.Address == null || document.Address == "")
+            {
+                Document doc = new Document
+                {
+                    Address = null,
+                    Signer = document.Signer,
+                    SignDate = document.SignDate,
+                    ArrivalDate=null,
+                    ExpirationDate = document.ExpirationDate,
+                    Note = document.Note,
+                    DocumentFile = document.DocumentFile,
+                    Receiver = document.Receiver,
+                    Sender = document.Sender,
+                    TypeId = document.TypeId,
+                    UrgencyId = document.UrgencyId,
+                    StatusId = document.StatusId
+                };
+                var a = document.Departments.ToList();
+                foreach (var item in a)
+                {
+                    var data = _context.Departments.Where(c => c.Id == item.Id);
+                    doc.Departments.Add(data.FirstOrDefault());
+                }
+                _context.Documents.Update(doc);
+                _context.SaveChanges();
+                return doc;
+            }
+            return false;
+        }
+
         public dynamic UpdateDocGo(Document document)
         {
             var data = _context.Documents.Include(c => c.Departments).FirstOrDefault(m => m.Id == document.Id);

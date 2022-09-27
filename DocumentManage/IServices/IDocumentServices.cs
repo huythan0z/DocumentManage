@@ -7,7 +7,9 @@ namespace DocumentManage.IServices
         IQueryable<dynamic> GetAll();
         IQueryable<dynamic> GetDocGo();
         IQueryable<dynamic> GetDocArrive();
-        dynamic AddNewGo(Document document);
+        dynamic AddNewGoDepart(Document document);
+        dynamic AddNewGoOut(Document document);
+        dynamic AddNewGoProfile(Document document);
         dynamic AddNewArrive(Document document);
         dynamic UpdateDocGo(Document document);
         dynamic UpdateDocArrive(Document document);
